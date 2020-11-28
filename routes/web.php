@@ -12,17 +12,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix('admin')->namespace('Admin')->group(function(){
 
-Route::put('admin/planos/editar/{url}', 'Admin\PlanController@update')->name('plans.update');
-Route::get('admin/planos/editar/{url}', 'Admin\PlanController@edit')->name('plans.edit');
-Route::any('admin/planos/filtrar', 'Admin\PlanController@search')->name('plans.search');
-Route::delete('admin/planos/{url}', 'Admin\PlanController@destroy')->name('plans.destroy');
-Route::get('admin/planos/cadastrar', 'Admin\PlanController@create')->name('plans.create');
-Route::post('admin/planos/cadastrar', 'Admin\PlanController@store')->name('plans.store');
-Route::get('admin/planos', 'Admin\PlanController@index')->name('plans.index');
-Route::get('admin/planos/{url}', 'Admin\PlanController@show')->name('plans.show');
+    Route::put('planos/editar/{url}', 'PlanController@update')->name('plans.update');
+    Route::get('planos/editar/{url}', 'PlanController@edit')->name('plans.edit');
+    Route::any('planos/filtrar', 'PlanController@search')->name('plans.search');
+    Route::delete('planos/{url}', 'PlanController@destroy')->name('plans.destroy');
+    Route::get('planos/cadastrar', 'PlanController@create')->name('plans.create');
+    Route::post('planos/cadastrar', 'PlanController@store')->name('plans.store');
+    Route::get('planos', 'PlanController@index')->name('plans.index');
+    Route::get('planos/{url}', 'PlanController@show')->name('plans.show');
 
-Route::get('admin', 'Admin\PlanController@index')->name('admin.home');
+    Route::get('/', 'PlanController@index')->name('admin.home');
+});
+
 
 Route::get('/', function () {
     return view('welcome');
