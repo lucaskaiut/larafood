@@ -24,7 +24,7 @@
         </div>
         <div class="card-body">
             <table class="table table-bordered">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                         <th>Nome</th>
                         <th width="100" class="text-center">Preço</th>
