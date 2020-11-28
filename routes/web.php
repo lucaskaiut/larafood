@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
+    // Permission
+
+    Route::post('permissoes/filtrar', 'ACL\PermissionController@search')->name('permissions.search');
+    Route::resource('permissoes', 'ACL\PermissionController', [
+        'names' => [
+            'index' => 'permissions.index',
+            'create' => 'permissions.create',
+            'show' => 'permissions.show',
+            'store' => 'permissions.store',
+            'edit' => 'permissions.edit',
+            'update' => 'permissions.update',
+            'destroy' => 'permissions.destroy',
+        ]
+    ]);
+
     // Profile
 
     Route::post('perfis/filtrar', 'ACL\ProfileController@search')->name('profiles.search');

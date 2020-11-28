@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateProfile;
-use App\Models\Profile;
+use App\Http\Requests\StoreUpdatePermission;
+use App\Models\Permission;
 
-class ProfileController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +16,16 @@ class ProfileController extends Controller
 
     private $repository;
 
-    public function __construct(Profile $profile){
-        $this->repository = $profile;
+    public function __construct(Permission $permission){
+        $this->repository = $permission;
     }
 
     public function index(){
         $data =[
-            'profiles' => $this->repository->paginate()
+            'permissions' => $this->repository->paginate()
         ];
 
-        return view('admin.pages.profiles.index', $data);
+        return view('admin.pages.permissions.index', $data);
     }
 
     /**
@@ -34,7 +34,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('admin.pages.profiles.create');
+        return view('admin.pages.permissions.create');
     }
 
     /**
@@ -43,12 +43,12 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateProfile $request){
+    public function store(StoreUpdatePermission $request){
         $this->repository->create($request->except('_token'));
 
         return redirect()
-            ->route('profiles.index')
-            ->with('success', 'Perfil cadastrado com sucesso!');
+            ->route('permissions.index')
+            ->with('success', 'Permissão cadastrado com sucesso!');
     }
 
     /**
@@ -58,16 +58,16 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(!$profile = $this->repository->find($id))
+        if(!$permission = $this->repository->find($id))
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
 
         $data = [
-            'profile' => $profile
+            'permission' => $permission
         ];
 
-        return view('admin.pages.profiles.show', $data);
+        return view('admin.pages.permissions.show', $data);
     }
 
     /**
@@ -77,16 +77,16 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        if(!$profile = $this->repository->find($id))
+        if(!$permission = $this->repository->find($id))
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
 
         $data = [
-            'profile' => $profile
+            'permission' => $permission
         ];
 
-        return view('admin.pages.profiles.edit', $data);
+        return view('admin.pages.permissions.edit', $data);
     }
 
     /**
@@ -96,17 +96,17 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateProfile $request, $id){
-        if(!$profile = $this->repository->find($id))
+    public function update(StoreUpdatePermission $request, $id){
+        if(!$permission = $this->repository->find($id))
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
 
-        $profile->update($request->all());
+        $permission->update($request->all());
 
         return redirect()
-            ->route('profiles.index')
-            ->with('success', "Perfil {$profile->name} alterado com sucesso");
+            ->route('permissions.index')
+            ->with('success', "Permissão {$permission->name} alterado com sucesso");
     }
 
     /**
@@ -116,24 +116,24 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(!$profile = $this->repository->find($id))
+        if(!$permission = $this->repository->find($id))
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
 
-        $profile->delete();
+        $permission->delete();
 
         return redirect()
-            ->route('profiles.index')
-            ->with('success', 'Perfil apagado com sucesso');
+            ->route('permissions.index')
+            ->with('success', 'Permissão apagado com sucesso');
     }
 
-    public function search(StoreUpdateProfile $request){
+    public function search(StoreUpdatePermission $request){
         $data = [
-            'profiles' => $this->repository->search($request->filter),
+            'permissions' => $this->repository->search($request->filter),
             'filters' => $request->except('_token')
         ];
 
-        return view('admin.pages.profiles.index', $data);
+        return view('admin.pages.permissions.index', $data);
     }
 }
