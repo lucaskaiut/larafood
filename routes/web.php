@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
+    // Profile
+
+    Route::post('perfis/filtrar', 'ACL\ProfileController@search')->name('profiles.search');
+    Route::resource('perfis', 'ACL\ProfileController', [
+        'names' => [
+            'index' => 'profiles.index',
+            'create' => 'profiles.create',
+            'show' => 'profiles.show',
+            'store' => 'profiles.store',
+            'edit' => 'profiles.edit',
+            'update' => 'profiles.update',
+            'destroy' => 'profiles.destroy',
+        ]
+    ]);
+
     // Details Plan
     Route::get('planos/{url}/detalhe/{id}/apagar', 'DetailPlanController@destroy')->name('details.plan.destroy');
     Route::put('planos/{url}/detalhe/{id}/editar', 'DetailPlanController@update')->name('details.plan.update');

@@ -241,6 +241,11 @@ return [
             'route' => 'plans.index',
             'icon'  => 'fas fa-list'
         ],
+        [
+            'text'  => 'PERFIS',
+            'route' => 'profiles.index',
+            'icon'  => 'fas fa-address-book'
+        ],
 
     ],
 
