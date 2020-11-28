@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
+    // Details Plan
+    Route::get('planos/{url}/detalhe/{id}/apagar', 'DetailPlanController@destroy')->name('details.plan.destroy');
+    Route::put('planos/{url}/detalhe/{id}/editar', 'DetailPlanController@update')->name('details.plan.update');
+    Route::get('planos/{url}/detalhe/{id}/editar', 'DetailPlanController@edit')->name('details.plan.edit');
+    Route::post('planos/{url}/detalhe/cadastrar', 'DetailPlanController@store')->name('details.plan.store');
+    Route::get('planos/{url}/detalhe/cadastrar', 'DetailPlanController@create')->name('details.plan.create');
+    Route::get('planos/{url}/detalhes', 'DetailPlanController@index')->name('details.plan.index');
+
+    //Plans
     Route::put('planos/editar/{url}', 'PlanController@update')->name('plans.update');
     Route::get('planos/editar/{url}', 'PlanController@edit')->name('plans.edit');
     Route::any('planos/filtrar', 'PlanController@search')->name('plans.search');
