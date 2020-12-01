@@ -34,7 +34,6 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             'destroy' => 'permissions.destroy',
         ]
     ]);
-
     // Profile
 
     Route::post('perfis/filtrar', 'ACL\ProfileController@search')->name('profiles.search');
@@ -49,6 +48,12 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             'destroy' => 'profiles.destroy',
         ]
     ]);
+
+    // Plans <> Profile
+    Route::post('planos/{url}/perfis/desvincular', 'PlanProfileController@detachProfile')->name('plans.profiles.detach');
+    Route::post('planos/{url}/perfis/vincular-perfis', 'PlanProfileController@attachProfile')->name('plans.profiles.attach');
+    Route::any('planos/{url}/perfis/vincular', 'PlanProfileController@availableProfiles')->name('plans.profiles.available');
+    Route::get('planos/{url}/perfis', 'PlanProfileController@profiles')->name('plans.profiles');
 
     // Details Plan
     Route::get('planos/{url}/detalhe/{id}/apagar', 'DetailPlanController@destroy')->name('details.plan.destroy');

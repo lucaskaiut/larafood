@@ -29,7 +29,7 @@
                         <th>Nome</th>
                         <th width="100" class="text-center d-none d-sm-table-cell">Preço</th>
                         <th class="d-none d-sm-table-cell">URL</th>
-                        <th width="150">Ações</th>
+                        <th width="200">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +41,7 @@
                             <td>
                                 <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-outline-warning"><i class="far fa-eye"></i></a>
                                 <a href="{{ route('plans.edit', $plan->url) }}" class="btn btn-outline-primary"><i class="far fa-edit"></i></a>
+                                <a href="{{ route('plans.profiles', $plan->url) }}" class="btn btn-outline-dark"><i class="fas fa-user-lock"></i></a>
                             </td>
                         </tr>
                     @endforeach
