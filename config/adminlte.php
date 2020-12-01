@@ -241,6 +241,16 @@ return [
             'route' => 'plans.index',
             'icon'  => 'fas fa-list'
         ],
+        [
+            'text'  => 'PERFIS',
+            'route' => 'profiles.index',
+            'icon'  => 'fas fa-address-book'
+        ],
+        [
+            'text'  => 'PERMISSÕES',
+            'route' => 'permissions.index',
+            'icon'  => 'fas fa-lock'
+        ],
 
     ],
 
