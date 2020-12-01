@@ -27,18 +27,19 @@
                 <thead class="thead-light">
                     <tr>
                         <th>Nome</th>
-                        <th>Descrição</th>
-                        <th width="150">Ações</th>
+                        <th class="d-none d-sm-table-cell">Descrição</th>
+                        <th width="200">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($profiles as $profile)
                         <tr>
                             <td class="text-left">{{ $profile->name }}</td>
-                            <td class="text-left">{{ $profile->description }}</td>
+                            <td class="text-left d-none d-sm-table-cell">{{ $profile->description }}</td>
                             <td>
                                 <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-outline-warning"><i class="far fa-eye"></i></a>
                                 <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-outline-primary"><i class="far fa-edit"></i></a>
+                                <a href="" class="btn btn-outline-dark"><i class="fas fa-lock"></i></a>
                             </td>
                         </tr>
                     @endforeach

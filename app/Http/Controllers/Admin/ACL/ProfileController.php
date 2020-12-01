@@ -64,7 +64,8 @@ class ProfileController extends Controller
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
 
         $data = [
-            'profile' => $profile
+            'profile' => $profile,
+            'permissions' => $profile->permissions()->paginate()
         ];
 
         return view('admin.pages.profiles.show', $data);
@@ -120,6 +121,11 @@ class ProfileController extends Controller
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
+
+        if($profile->permissions()->count() > 0)
+            return redirect()
+                ->back()
+                ->with('error', "Não é possível apagar esse perfil pois existe(m) {$profile->permissions()->count()} permissão(oes) vinculada(s)");
 
         $profile->delete();
 

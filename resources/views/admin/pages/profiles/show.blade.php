@@ -31,5 +31,6 @@
                 </li>
             </ul>
         </div>
+        @include('admin.pages.profiles.permissions.permissions')
     </div>
 @stop

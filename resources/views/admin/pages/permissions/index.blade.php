@@ -27,7 +27,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th>Nome</th>
-                        <th>Descrição</th>
+                        <th class="d-none d-sm-table-cell">Descrição</th>
                         <th width="150">Ações</th>
                     </tr>
                 </thead>
@@ -35,7 +35,7 @@
                     @foreach($permissions as $permission)
                         <tr>
                             <td class="text-left">{{ $permission->name }}</td>
-                            <td class="text-left">{{ $permission->description }}</td>
+                            <td class="text-left d-none d-sm-table-cell">{{ $permission->description }}</td>
                             <td>
                                 <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-outline-warning"><i class="far fa-eye"></i></a>
                                 <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-outline-primary"><i class="far fa-edit"></i></a>

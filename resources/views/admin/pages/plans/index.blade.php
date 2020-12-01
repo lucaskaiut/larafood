@@ -27,8 +27,8 @@
                 <thead class="thead-light">
                     <tr>
                         <th>Nome</th>
-                        <th width="100" class="text-center">Preço</th>
-                        <th>URL</th>
+                        <th width="100" class="text-center d-none d-sm-table-cell">Preço</th>
+                        <th class="d-none d-sm-table-cell">URL</th>
                         <th width="150">Ações</th>
                     </tr>
                 </thead>
@@ -36,8 +36,8 @@
                     @foreach($plans as $plan)
                         <tr>
                             <td class="text-left">{{ $plan->name }}</td>
-                            <td class="text-right">R${{ number_format($plan->price, 2, ',', '.') }}</td>
-                            <td class="text-left">{{ $plan->url }}</td>
+                            <td class="text-right d-none d-sm-table-cell">R${{ number_format($plan->price, 2, ',', '.') }}</td>
+                            <td class="text-left d-none d-sm-table-cell">{{ $plan->url }}</td>
                             <td>
                                 <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-outline-warning"><i class="far fa-eye"></i></a>
                                 <a href="{{ route('plans.edit', $plan->url) }}" class="btn btn-outline-primary"><i class="far fa-edit"></i></a>

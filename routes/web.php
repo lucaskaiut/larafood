@@ -14,9 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
+    // Permission <> Profile
+    Route::post('perfil/{id}/permissoes/desvincular', 'ACL\PermissionProfileController@detachPermissionsToProfile')->name('profiles.permissions.detach');
+    Route::post('perfil/{id}/permissoes/vincular-permissoes', 'ACL\PermissionProfileController@attachPermissionsToProfile')->name('profiles.permissions.attach');
+    Route::any('perfil/{id}/permissoes/vincular', 'ACL\PermissionProfileController@permissionsAvailableToProfile')->name('profiles.permissions.available');
+    Route::get('perfil/{id}/permissoes/vincular', 'ACL\PermissionProfileController@permissionsAvailableToProfile')->name('profiles.permissions.available');
+
     // Permission
 
-    Route::post('permissoes/filtrar', 'ACL\PermissionController@search')->name('permissions.search');
+    Route::any('permissoes/filtrar', 'ACL\PermissionController@search')->name('permissions.search');
     Route::resource('permissoes', 'ACL\PermissionController', [
         'names' => [
             'index' => 'permissions.index',
