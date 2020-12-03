@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::prefix('admin')->namespace('Admin')->group(function(){
+Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
     // Permission <> Profile
     Route::post('perfil/{id}/permissoes/desvincular', 'ACL\PermissionProfileController@detachPermissionsToProfile')->name('profiles.permissions.detach');
@@ -80,3 +80,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
