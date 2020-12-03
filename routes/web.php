@@ -77,9 +77,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
 });
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Site\SiteController@index')->name('site.home');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
