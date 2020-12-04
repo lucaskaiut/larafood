@@ -28,7 +28,7 @@
                                 @endforeach
                             </ul>
                             <div class="pricingTable-signup">
-                                <a href="#">Assinar</a>
+                                <a href="{{ route('plan.subscription', $plan->url) }}">Assinar</a>
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,8 @@
 
 return [
 
+    'company'                     => 'Empresa',
+    'cnpj'                        => 'CNPJ',
     'full_name'                   => 'Nome completo',
     'email'                       => 'Email',
     'password'                    => 'Senha',

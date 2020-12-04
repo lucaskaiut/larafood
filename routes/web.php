@@ -76,9 +76,13 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
     Route::get('/', 'PlanController@index')->name('admin.home');
 });
 
+Route::namespace('Site')->group(function(){
+    Route::get('/plano/{url}', 'SubscriptionController@plan')->name('plan.subscription');
+    Route::get('/', 'SiteController@index')->name('site.home');
+});
 
-Route::get('/', 'Site\SiteController@index')->name('site.home');
+/*
+ * Auth routes
+ */
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Auth::routes();
