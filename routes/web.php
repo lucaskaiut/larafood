@@ -73,7 +73,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
     Route::get('planos', 'PlanController@index')->name('plans.index');
     Route::get('planos/{url}', 'PlanController@show')->name('plans.show');
 
-    Route::get('/', 'PlanController@index')->name('admin.home');
+    Route::get('/', 'DashboardController@index')->name('admin.home');
 });
 
 Route::namespace('Site')->group(function(){
