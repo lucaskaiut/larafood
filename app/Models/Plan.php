@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model
 {
-    use HasFactory;
     protected $fillable = ['name', 'description', 'url', 'price'];
 
     public function details(){
@@ -25,6 +23,10 @@ class Plan extends Model
 
     public function profiles(){
         return $this->belongsToMany(Profile::class, 'profile_plan');
+    }
+
+    public function tenants(){
+        return $this->hasMany(Tenant::class);
     }
 
     public function profilesAvailable($filter = null){
