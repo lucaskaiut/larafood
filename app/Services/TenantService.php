@@ -24,7 +24,6 @@ class TenantService{
         $tenant = $this->plan->tenants()->create([
             'cnpj' => $this->data['cnpj'],
             'name' => $this->data['company'],
-            'url' => Str::kebab($this->data['company']),
             'email' => $this->data['email'],
             'subscription' => now(),
             'expires_at' => now()->addDays(7)
