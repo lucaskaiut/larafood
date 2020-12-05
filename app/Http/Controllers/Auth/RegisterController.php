@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\TenantService;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -70,20 +71,9 @@ class RegisterController extends Controller
                 ->route('site.home')
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
 
-        $tenant = $plan->tenants()->create([
-            'cnpj' => $data['cnpj'],
-            'name' => $data['company'],
-            'url' => Str::kebab($data['company']),
-            'email' => $data['email'],
-            'subscription' => now(),
-            'expires_at' => now()->addDays(7)
-        ]);
+        $tenantService = app(TenantService::class);
 
-        $user = $tenant->users()->create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
+        $user = $tenantService->make($plan, $data);
 
         return $user;
     }
