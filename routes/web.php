@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+    Route::delete('usuarios/{id}/apagar', 'UserController@destroy')->name('users.destroy');
+    Route::put('usuarios/editar/{id}', 'UserController@update')->name('users.update');
+    Route::get('usuarios/editar/{id}', 'UserController@edit')->name('users.edit');
+    Route::get('usuarios/detalhes/{id}', 'UserController@show')->name('users.show');
+    Route::post('usuarios/cadastrar', 'UserController@store')->name('users.store');
+    Route::get('usuarios/cadastrar', 'UserController@create')->name('users.create');
+    Route::get('usuarios', 'UserController@index')->name('users.index');
+
     // Permission <> Profile
     Route::post('perfil/{id}/permissoes/desvincular', 'ACL\PermissionProfileController@detachPermissionsToProfile')->name('profiles.permissions.detach');
     Route::post('perfil/{id}/permissoes/vincular-permissoes', 'ACL\PermissionProfileController@attachPermissionsToProfile')->name('profiles.permissions.attach');
@@ -73,7 +81,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
     Route::get('planos', 'PlanController@index')->name('plans.index');
     Route::get('planos/{url}', 'PlanController@show')->name('plans.show');
 
-    Route::get('/', 'PlanController@index')->name('admin.home');
+    Route::get('/', 'DashboardController@index')->name('admin.home');
 });
 
 Route::namespace('Site')->group(function(){

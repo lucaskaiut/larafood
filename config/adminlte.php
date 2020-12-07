@@ -251,6 +251,11 @@ return [
             'route' => 'permissions.index',
             'icon'  => 'fas fa-lock'
         ],
+        [
+            'text'  => 'USUÁRIOS',
+            'route' => 'users.index',
+            'icon'  => 'fas fa-users'
+        ],
 
     ],
 
