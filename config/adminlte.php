@@ -256,6 +256,11 @@ return [
             'route' => 'users.index',
             'icon'  => 'fas fa-users'
         ],
+        [
+            'text'  => 'CATEGORIAS',
+            'route' => 'categories.index',
+            'icon'  => 'fas fa-layer-group'
+        ],
 
     ],
 

@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+    Route::any('categorias/procurar', 'CategoryController@search')->name('categories.search');
+    Route::resource('categorias', 'CategoryController', [
+        'names' => [
+            'index' => 'categories.index',
+            'create' => 'categories.create',
+            'show' => 'categories.show',
+            'store' => 'categories.store',
+            'edit' => 'categories.edit',
+            'update' => 'categories.update',
+            'destroy' => 'categories.destroy',
+        ]
+    ]);
+
     Route::delete('usuarios/{id}/apagar', 'UserController@destroy')->name('users.destroy');
     Route::put('usuarios/editar/{id}', 'UserController@update')->name('users.update');
     Route::get('usuarios/editar/{id}', 'UserController@edit')->name('users.edit');
