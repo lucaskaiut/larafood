@@ -15,4 +15,8 @@ class Tenant extends Model
     public function plan(){
         return $this->belongsTo(Plan::class);
     }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }

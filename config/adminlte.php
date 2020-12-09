@@ -261,6 +261,11 @@ return [
             'route' => 'categories.index',
             'icon'  => 'fas fa-layer-group'
         ],
+        [
+            'text'  => 'PRODUTOS',
+            'route' => 'products.index',
+            'icon'  => 'fas fa-store'
+        ],
 
     ],
 

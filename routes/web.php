@@ -14,6 +14,25 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+    // Category <> Product
+    Route::post('produto/{id}/categorias/desvincular', 'CategoryProductController@detachCategoriesToProduct')->name('products.categories.detach');
+    Route::post('produto/{id}/categorias/vincular-categorias', 'CategoryProductController@attachCategoriesToProduct')->name('products.categories.attach');
+    Route::any('produto/{id}/categorias/vincular', 'CategoryProductController@categoriesAvailableToProduct')->name('products.categories.available');
+    Route::get('produto/{id}/categorias/vincular', 'CategoryProductController@categoriesAvailableToProduct')->name('products.categories.available');
+
+    Route::any('produtos/procurar', 'ProductController@search')->name('products.search');
+    Route::resource('produtos', 'ProductController', [
+        'names' => [
+            'index' => 'products.index',
+            'create' => 'products.create',
+            'show' => 'products.show',
+            'store' => 'products.store',
+            'edit' => 'products.edit',
+            'update' => 'products.update',
+            'destroy' => 'products.destroy',
+        ]
+    ]);
+
     Route::any('categorias/procurar', 'CategoryController@search')->name('categories.search');
     Route::resource('categorias', 'CategoryController', [
         'names' => [
