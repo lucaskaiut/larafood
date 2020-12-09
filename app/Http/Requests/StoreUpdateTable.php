@@ -13,7 +13,7 @@ class StoreUpdateTable extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,11 @@ class StoreUpdateTable extends FormRequest
      */
     public function rules()
     {
+        $id = $this->segment(3);
+
         return [
-            //
+            'name' => "required|min:3|max:255|unique:tables,name,{$id},id",
+            'description' => 'nullable|min:3|max:255',
         ];
     }
 }
