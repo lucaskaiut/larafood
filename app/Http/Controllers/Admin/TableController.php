@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateTable;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
 {
+    private $repository;
+
+    public function __construct(Table $table){
+        $this->repository = $table;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,11 @@ class TableController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'tables' => $this->repository->paginate()
+        ];
+
+        return view('admin.pages.tables.index', $data);
     }
 
     /**
@@ -24,7 +36,7 @@ class TableController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.tables.create');
     }
 
     /**
@@ -33,9 +45,13 @@ class TableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateTable $request)
     {
-        //
+        $this->repository->create($request->all());
+
+        return redirect()
+            ->route('tables.index')
+            ->with('success', 'Mesa cadastrada com sucesso');
     }
 
     /**
@@ -46,7 +62,16 @@ class TableController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!$table = $this->repository->find($id))
+            return redirect()
+                ->back()
+                ->with('error', 'Algo deu errado. Tente novamente mais tarde');
+
+        $data = [
+            'table' => $table
+        ];
+
+        return view('admin.pages.tables.show', $data);
     }
 
     /**
@@ -57,7 +82,16 @@ class TableController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!$table = $this->repository->find($id))
+            return redirect()
+                ->back()
+                ->with('error', 'Algo deu errado. Tente novamente mais tarde');
+
+        $data = [
+            'table' => $table
+        ];
+
+        return view('admin.pages.tables.edit', $data);
     }
 
     /**
@@ -67,9 +101,18 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateTable $request, $id)
     {
-        //
+        if(!$table = $this->repository->find($id))
+            return redirect()
+                ->back()
+                ->with('error', 'Algo deu errado. Tente novamente mais tarde');
+
+        $table->update($request->all());
+
+        return redirect()
+            ->route('tables.index')
+            ->with('success', "Mesa {$table->name} alterada com sucesso");
     }
 
     /**
@@ -80,6 +123,24 @@ class TableController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!$table = $this->repository->find($id))
+            return redirect()
+                ->back()
+                ->with('error', 'Algo deu errado. Tente novamente mais tarde');
+
+        $table->delete();
+
+        return redirect()
+            ->route('tables.index')
+            ->with('success', "Mesa {$table->name} apagada com sucesso");
+    }
+
+    public function search(Request $request){
+        $data = [
+            'tables' => $this->repository->search($request->filter),
+            'filters' => $request->except('_token')
+        ];
+
+        return view('admin.pages.tables.index', $data);
     }
 }
