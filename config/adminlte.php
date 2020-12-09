@@ -266,6 +266,11 @@ return [
             'route' => 'products.index',
             'icon'  => 'fas fa-store'
         ],
+        [
+            'text'  => 'MESAS',
+            'route' => 'tables.index',
+            'icon'  => 'fas fa-tablet-alt'
+        ],
 
     ],
 
