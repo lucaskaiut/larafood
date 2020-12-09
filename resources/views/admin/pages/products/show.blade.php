@@ -39,6 +39,7 @@
                     <img src="{{ asset("storage/{$product->image}") }}" alt="{{ $product->name }}" width="600px">
                 </li>
             </ul>
+            @include('admin.pages.products.categories.categories')
         </div>
     </div>
 @stop

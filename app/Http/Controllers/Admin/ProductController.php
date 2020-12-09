@@ -80,7 +80,8 @@ class ProductController extends Controller
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
 
         $data = [
-            'product' => $product
+            'product' => $product,
+            'categories' => $product->categories()->paginate()
         ];
 
         return view('admin.pages.products.show', $data);
