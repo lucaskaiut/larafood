@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Tenant\Observers\TenantObserver;
 use Illuminate\Database\Eloquent\Model;
 use App\Tenant\Traits\TenantTrait;
 
@@ -18,5 +17,9 @@ class Category extends Model
             ->paginate();
 
         return $results;
+    }
+
+    public function products(){
+        return $this->belongsToMany(Product::class);
     }
 }

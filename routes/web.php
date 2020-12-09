@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+    Route::any('produtos/procurar', 'ProductController@search')->name('products.search');
+    Route::resource('products', 'ProductController', [
+        'names' => [
+            'index' => 'products.index',
+            'create' => 'products.create',
+            'show' => 'products.show',
+                'store' => 'products.store',
+            'edit' => 'products.edit',
+            'update' => 'products.update',
+            'destroy' => 'products.destroy',
+        ]
+    ]);
+
     Route::any('categorias/procurar', 'CategoryController@search')->name('categories.search');
     Route::resource('categorias', 'CategoryController', [
         'names' => [
