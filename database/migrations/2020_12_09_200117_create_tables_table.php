@@ -15,7 +15,15 @@ class CreateTablesTable extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('tenant_id');
+            $table->string('name')->unique();
+            $table->string('description');
             $table->timestamps();
+
+            $table->foreign('tenant_id')
+                ->references('id')
+                ->on('tenants')
+                ->onDelete('cascade');
         });
     }
 
