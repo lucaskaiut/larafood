@@ -47,7 +47,7 @@
                         </tr>
                     @endforeach
                     <td colspan="500" class="">
-                        <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="btn btn-outline-success"><i class="far fa-save"></i></button>
                     </td>
                 </form>
                 </tbody>
