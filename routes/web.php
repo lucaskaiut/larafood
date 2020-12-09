@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
     Route::any('produtos/procurar', 'ProductController@search')->name('products.search');
-    Route::resource('products', 'ProductController', [
+    Route::resource('produtos', 'ProductController', [
         'names' => [
             'index' => 'products.index',
             'create' => 'products.create',
             'show' => 'products.show',
-                'store' => 'products.store',
+            'store' => 'products.store',
             'edit' => 'products.edit',
             'update' => 'products.update',
             'destroy' => 'products.destroy',

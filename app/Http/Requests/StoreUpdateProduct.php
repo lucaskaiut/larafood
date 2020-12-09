@@ -23,10 +23,17 @@ class StoreUpdateProduct extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => "required|min:3|max:255",
-            'description' => 'required|min:3|max:255',
-            'price' => "required|regex:/^\d+(\.\d{1,2})?$/",
+        $id = $this->segment(3);
+
+        $rules = [
+            'name' => ['required', 'min:3', 'max:255', "unique:products,name,{$id},id"],
+            'description' => ['required', 'min:3', 'max:10000'],
+            'image' => ['required', 'image']
         ];
+
+        if($this->method() == 'PUT')
+            $rules['image'] = ['nullable', 'image'];
+
+        return $rules;
     }
 }

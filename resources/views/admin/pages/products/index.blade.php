@@ -26,6 +26,7 @@
             <table class="table table-bordered">
                 <thead class="thead-light">
                     <tr>
+                        <th width="90px">Imagem</th>
                         <th>Nome</th>
                         <th class="d-none d-sm-table-cell">Preço</th>
                         <th width="200">Ações</th>
@@ -34,8 +35,11 @@
                 <tbody>
                     @foreach($products as $product)
                         <tr>
+                            <td class="text-left">
+                                <img src="{{ asset("storage/{$product->image}") }}" alt="{{ $product->name }}" width="80px">
+                            </td>
                             <td class="text-left">{{ $product->name }}</td>
-                            <td class="text-left d-none d-sm-table-cell">{{ number_format($product->price, 2, ',', '.') }}</td>
+                            <td class="text-left d-none d-sm-table-cell">R${{ number_format($product->price, 2, ',', '.') }}</td>
                             <td>
                                 <a href="{{ route('products.show', $product->id) }}" class="btn btn-outline-warning"><i class="far fa-eye"></i></a>
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-primary"><i class="far fa-edit"></i></a>

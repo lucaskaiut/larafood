@@ -53,4 +53,5 @@ class User extends Authenticatable
     public function scopeTenantUser(Builder $query){
         return $query->where('tenant_id', auth()->user()->tenant_id);
     }
+
 }

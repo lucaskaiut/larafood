@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -47,7 +49,17 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProduct $request)
     {
-        $this->repository->create($request->all());
+        $data = $request->all();
+
+        $tenant = auth()->user()->tenant;
+
+        if($request->hasFile('image') && $request->image->isValid()){
+            $extension = $request->image->extension();
+            $fileName = Str::kebab($request->name) . "." . $extension;
+            $data['image'] = $request->image->storeAs("tenants/{$tenant->uuid}/products", $fileName);
+        }
+
+        $this->repository->create($data);
 
         return redirect()
             ->route('products.index')
@@ -108,7 +120,20 @@ class ProductController extends Controller
                 ->back()
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
 
-        $product->update($request->all());
+        $data = $request->all();
+
+        $tenant = auth()->user()->tenant;
+
+        if($request->hasFile('image') && $request->image->isValid()){
+            if(Storage::exists($product->image))
+                Storage::delete($product->image);
+
+            $extension = $request->image->extension();
+            $fileName = Str::kebab($request->name) . "." . $extension;
+            $data['image'] = $request->image->storeAs("tenants/{$tenant->uuid}/products", $fileName);
+        }
+
+        $product->update($data);
 
         return redirect()
             ->route('products.index')
@@ -127,6 +152,9 @@ class ProductController extends Controller
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado. Tente novamente mais tarde');
+
+        if(Storage::exists($product->image))
+            Storage::delete($product->image);
 
         $product->delete();
 
