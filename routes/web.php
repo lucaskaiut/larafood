@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+    Route::any('mesas/procurar', 'TableController@search')->name('tables.search');
+    Route::resource('mesas', 'TableController', [
+        'names' => [
+            'index' => 'tables.index',
+            'create' => 'tables.create',
+            'show' => 'tables.show',
+            'store' => 'tables.store',
+            'edit' => 'tables.edit',
+            'update' => 'tables.update',
+            'destroy' => 'tables.destroy',
+        ]
+    ]);
+
     // Category <> Product
     Route::post('produto/{id}/categorias/desvincular', 'CategoryProductController@detachCategoriesToProduct')->name('products.categories.detach');
     Route::post('produto/{id}/categorias/vincular-categorias', 'CategoryProductController@attachCategoriesToProduct')->name('products.categories.attach');
