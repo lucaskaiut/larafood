@@ -14,6 +14,27 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+    // Permission <> Role
+    Route::post('cargo/{id}/permissoes/desvincular', 'ACL\PermissionRoleController@detachPermissionsToRole')->name('roles.permissions.detach');
+    Route::post('cargo/{id}/permissoes/vincular-permissoes', 'ACL\PermissionRoleController@attachPermissionsToRole')->name('roles.permissions.attach');
+    Route::any('cargo/{id}/permissoes/vincular', 'ACL\PermissionRoleController@permissionsAvailableToRole')->name('roles.permissions.available');
+    Route::get('cargo/{id}/permissoes/vincular', 'ACL\PermissionRoleController@permissionsAvailableToRole')->name('roles.permissions.available');
+
+    // Role
+    Route::post('cargos/filtrar', 'ACL\RoleController@search')->name('roles.search');
+    Route::resource('cargos', 'ACL\RoleController', [
+        'names' => [
+            'index' => 'roles.index',
+            'create' => 'roles.create',
+            'show' => 'roles.show',
+            'store' => 'roles.store',
+            'edit' => 'roles.edit',
+            'update' => 'roles.update',
+            'destroy' => 'roles.destroy',
+        ]
+    ]);
+
+    // Tenants
     Route::any('empresas/procurar', 'TenantController@search')->name('tenants.search');
     Route::resource('empresas', 'TenantController', [
         'names' => [
@@ -27,6 +48,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
         ]
     ]);
 
+    // Tables
     Route::any('mesas/procurar', 'TableController@search')->name('tables.search');
     Route::resource('mesas', 'TableController', [
         'names' => [

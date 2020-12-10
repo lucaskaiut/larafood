@@ -249,6 +249,12 @@ return [
             'can'   => 'view_profiles',
         ],
         [
+            'text'  => 'CARGOS',
+            'route' => 'roles.index',
+            'icon'  => 'fas fa-address-book',
+            'can'   => 'view_roles',
+        ],
+        [
             'text'  => 'PERMISSÕES',
             'route' => 'permissions.index',
             'icon'  => 'fas fa-lock',
