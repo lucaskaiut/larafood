@@ -92,6 +92,7 @@ class UserController extends Controller
 
         $data = [
             'user' => $user,
+            'roles' => $user->roles()->paginate()
         ];
 
         return view('admin.pages.users.show', $data);

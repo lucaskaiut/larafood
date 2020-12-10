@@ -31,6 +31,7 @@
                     <strong>E-Mail: </strong> {{ $user->email }}
                 </li>
             </ul>
+            @include('admin.pages.users.roles.roles')
         </div>
     </div>
 @stop

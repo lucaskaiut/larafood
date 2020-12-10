@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+    // Role <> User
+    Route::post('usuario/{id}/cargos/desvincular', 'ACL\RoleUserController@detachRolesToUser')->name('users.roles.detach');
+    Route::post('usuario/{id}/cargos/vincular-cargos', 'ACL\RoleUserController@attachRolesToUser')->name('users.roles.attach');
+    Route::any('usuario/{id}/cargos/vincular', 'ACL\RoleUserController@rolesAvailableToUser')->name('users.roles.available');
+    Route::get('usuario/{id}/cargos/vincular', 'ACL\RoleUserController@rolesAvailableToUser')->name('users.roles.available');
+
     // Permission <> Role
     Route::post('cargo/{id}/permissoes/desvincular', 'ACL\PermissionRoleController@detachPermissionsToRole')->name('roles.permissions.detach');
     Route::post('cargo/{id}/permissoes/vincular-permissoes', 'ACL\PermissionRoleController@attachPermissionsToRole')->name('roles.permissions.attach');
