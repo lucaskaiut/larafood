@@ -278,6 +278,12 @@ return [
             'icon'  => 'fas fa-tablet-alt',
             'can'   => 'view_tables',
         ],
+        [
+            'text'  => 'EMPRESAS',
+            'route' => 'tenants.index',
+            'icon'  => 'fas fa-briefcase',
+            'can'   => 'view_tenants',
+        ],
 
     ],
 

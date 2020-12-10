@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+    Route::any('empresas/procurar', 'TenantController@search')->name('tenants.search');
+    Route::resource('empresas', 'TenantController', [
+        'names' => [
+            'index' => 'tenants.index',
+            'create' => 'tenants.create',
+            'show' => 'tenants.show',
+            'store' => 'tenants.store',
+            'edit' => 'tenants.edit',
+            'update' => 'tenants.update',
+            'destroy' => 'tenants.destroy',
+        ]
+    ]);
+
     Route::any('mesas/procurar', 'TableController@search')->name('tables.search');
     Route::resource('mesas', 'TableController', [
         'names' => [

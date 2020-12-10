@@ -153,6 +153,26 @@ class PermissionsTableSeeder extends Seeder
                 'name' => 'delete_tables',
                 'description' => 'Permissão para apagar mesas',
             ],
+
+            /*
+             * Tenants
+             */
+            [
+                'name' => 'view_tenants',
+                'description' => 'Permissão para visualizar empresas',
+            ],
+            [
+                'name' => 'edit_tenants',
+                'description' => 'Permissão para editar empresas',
+            ],
+            [
+                'name' => 'add_tenants',
+                'description' => 'Permissão para adicionar empresas',
+            ],
+            [
+                'name' => 'delete_tenants',
+                'description' => 'Permissão para apagar empresas',
+            ],
         ];
 
         foreach($permissions as $permission){
