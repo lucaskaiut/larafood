@@ -17,6 +17,8 @@ class PlanController extends Controller
     }
 
     public function index(){
+        $this->authorize('view_plans');
+
         $data = [
             'plans' => $this->repository->latest()->paginate()
         ];
@@ -25,10 +27,14 @@ class PlanController extends Controller
     }
 
     public function create(){
+        $this->authorize('add_plans');
+
         return view('admin.pages.plans.create');
     }
 
     public function store(StoreUpdatePlan $request){
+        $this->authorize('add_plans');
+
         $this->repository->create($request->except('_token'));
 
         return redirect()
@@ -37,6 +43,8 @@ class PlanController extends Controller
     }
 
     public function show($url){
+        $this->authorize('view_plans');
+
         if(!$plan = $this->repository->where('url', $url)->first())
             return redirect()
                 ->back()
@@ -51,6 +59,8 @@ class PlanController extends Controller
     }
 
     public function destroy($url){
+        $this->authorize('delete_plans');
+
         if(!$plan = $this->repository
                             ->with('details')
                             ->where('url', $url)->first())
@@ -69,6 +79,8 @@ class PlanController extends Controller
     }
 
     public function search(Request $request){
+        $this->authorize('view_plans');
+
         $data = [
             'plans' => $this->repository->search($request->filter),
             'filters' => $request->except('_token')
@@ -78,6 +90,8 @@ class PlanController extends Controller
     }
 
     public function edit($url){
+        $this->authorize('edit_plans');
+
         if(!$plan = $this->repository->where('url', $url)->first())
             return redirect()
                 ->back()
@@ -91,6 +105,8 @@ class PlanController extends Controller
     }
 
     public function update(StoreUpdatePlan $request, $url){
+        $this->authorize('edit_plans');
+
         $plan = $this->repository->where('url', $request->url)->first();
 
         $plan->update($request->except('_token'));

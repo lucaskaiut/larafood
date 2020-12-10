@@ -239,37 +239,44 @@ return [
         [
             'text'  => 'PLANOS',
             'route' => 'plans.index',
-            'icon'  => 'fas fa-list'
+            'icon'  => 'fas fa-list',
+            'can'   => 'view_plans',
         ],
         [
             'text'  => 'PERFIS',
             'route' => 'profiles.index',
-            'icon'  => 'fas fa-address-book'
+            'icon'  => 'fas fa-address-book',
+            'can'   => 'view_profiles',
         ],
         [
             'text'  => 'PERMISSÕES',
             'route' => 'permissions.index',
-            'icon'  => 'fas fa-lock'
+            'icon'  => 'fas fa-lock',
+            'can'   => 'view_permissions',
         ],
         [
             'text'  => 'USUÁRIOS',
             'route' => 'users.index',
-            'icon'  => 'fas fa-users'
+            'icon'  => 'fas fa-users',
+            'can'   => 'view_users',
         ],
         [
             'text'  => 'CATEGORIAS',
             'route' => 'categories.index',
-            'icon'  => 'fas fa-layer-group'
+            'icon'  => 'fas fa-layer-group',
+            'can'   => 'view_categories',
         ],
         [
             'text'  => 'PRODUTOS',
             'route' => 'products.index',
-            'icon'  => 'fas fa-store'
+            'icon'  => 'fas fa-store',
+            'can'   => 'view_products',
         ],
         [
             'text'  => 'MESAS',
             'route' => 'tables.index',
-            'icon'  => 'fas fa-tablet-alt'
+            'icon'  => 'fas fa-tablet-alt',
+            'can'   => 'view_tables',
         ],
 
     ],

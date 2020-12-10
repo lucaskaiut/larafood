@@ -22,6 +22,8 @@ class TableController extends Controller
      */
     public function index()
     {
+        $this->authorize('view_tables');
+
         $data = [
             'tables' => $this->repository->paginate()
         ];
@@ -36,6 +38,8 @@ class TableController extends Controller
      */
     public function create()
     {
+        $this->authorize('add_tables');
+
         return view('admin.pages.tables.create');
     }
 
@@ -47,6 +51,8 @@ class TableController extends Controller
      */
     public function store(StoreUpdateTable $request)
     {
+        $this->authorize('add_tables');
+
         $this->repository->create($request->all());
 
         return redirect()
@@ -62,6 +68,8 @@ class TableController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view_tables');
+
         if(!$table = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -82,6 +90,8 @@ class TableController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit_tables');
+
         if(!$table = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -103,6 +113,8 @@ class TableController extends Controller
      */
     public function update(StoreUpdateTable $request, $id)
     {
+        $this->authorize('edit_tables');
+
         if(!$table = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -123,6 +135,8 @@ class TableController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete_tables');
+
         if(!$table = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -136,6 +150,8 @@ class TableController extends Controller
     }
 
     public function search(Request $request){
+        $this->authorize('view_tables');
+
         $data = [
             'tables' => $this->repository->search($request->filter),
             'filters' => $request->except('_token')

@@ -16,6 +16,8 @@ class UserController extends Controller
     }
 
     public function index(){
+        $this->authorize('view_users');
+
         $data = [
             'users' => $this->repository->tenantUser()->paginate()
         ];
@@ -24,10 +26,14 @@ class UserController extends Controller
     }
 
     public function create(){
+        $this->authorize('add_users');
+
         return view('admin.pages.users.create');
     }
 
     public function store(StoreUpdateUser $request){
+        $this->authorize('add_users');
+
         $data = $request->all();
 
         $data['tenant_id'] = auth()->user()->tenant_id;
@@ -42,6 +48,8 @@ class UserController extends Controller
     }
 
     public function edit($user_id){
+        $this->authorize('edit_users');
+
         if(!$user = $this->repository->tenantUser()->find($user_id))
             return redirect()
                 ->back()
@@ -56,6 +64,8 @@ class UserController extends Controller
 
 
     public function update(StoreUpdateUser $request, $user_id){
+        $this->authorize('edit_users');
+
         if(!$user = $this->repository->tenantUser()->find($user_id))
             return redirect()
                 ->back()
@@ -73,6 +83,8 @@ class UserController extends Controller
     }
 
     public function show($user_id){
+        $this->authorize('view_users');
+
         if(!$user = $this->repository->tenantUser()->find($user_id))
             return redirect()
                 ->back()
@@ -86,6 +98,8 @@ class UserController extends Controller
     }
 
     public function destroy($user_id){
+        $this->authorize('delete_users');
+
         if(!$user = $this->repository->tenantUser()->find($user_id))
             return redirect()
                 ->back()

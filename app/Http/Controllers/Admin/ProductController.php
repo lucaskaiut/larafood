@@ -24,6 +24,8 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $this->authorize('view_products');
+
         $data = [
             'products' => $this->repository->paginate()
         ];
@@ -38,6 +40,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('add_products');
+
         return view('admin.pages.products.create');
     }
 
@@ -49,6 +53,8 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProduct $request)
     {
+        $this->authorize('add_products');
+
         $data = $request->all();
 
         $tenant = auth()->user()->tenant;
@@ -74,6 +80,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view_products');
+
         if(!$product = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -95,6 +103,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit_products');
+
         if(!$product = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -116,6 +126,8 @@ class ProductController extends Controller
      */
     public function update(StoreUpdateProduct $request, $id)
     {
+        $this->authorize('edit_products');
+
         if(!$product = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -149,6 +161,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete_products');
+
         if(!$product = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -165,6 +179,8 @@ class ProductController extends Controller
     }
 
     public function search(Request $request){
+        $this->authorize('view_products');
+
         $data = [
             'products' => $this->repository->search($request->filter),
             'filters' => $request->except('_token')

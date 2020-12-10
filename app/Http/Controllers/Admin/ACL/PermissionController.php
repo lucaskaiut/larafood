@@ -21,6 +21,8 @@ class PermissionController extends Controller
     }
 
     public function index(){
+        $this->authorize('view_permissions');
+
         $data =[
             'permissions' => $this->repository->paginate()
         ];
@@ -34,6 +36,8 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
+        $this->authorize('add_permissions');
+
         return view('admin.pages.permissions.create');
     }
 
@@ -44,6 +48,8 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUpdatePermission $request){
+        $this->authorize('add_permissions');
+
         $this->repository->create($request->except('_token'));
 
         return redirect()
@@ -58,6 +64,8 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
+        $this->authorize('view_permissions');
+
         if(!$permission = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -77,6 +85,8 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
+        $this->authorize('edit_permissions');
+
         if(!$permission = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -97,6 +107,8 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StoreUpdatePermission $request, $id){
+        $this->authorize('edit_permissions');
+
         if(!$permission = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -116,6 +128,8 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
+        $this->authorize('delete_permissions');
+
         if(!$permission = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -129,6 +143,8 @@ class PermissionController extends Controller
     }
 
     public function search(StoreUpdatePermission $request){
+        $this->authorize('view_permissions');
+
         $data = [
             'permissions' => $this->repository->search($request->filter),
             'filters' => $request->except('_token')

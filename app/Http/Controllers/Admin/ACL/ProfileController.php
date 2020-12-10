@@ -21,6 +21,8 @@ class ProfileController extends Controller
     }
 
     public function index(){
+        $this->authorize('view_profiles');
+
         $data =[
             'profiles' => $this->repository->paginate()
         ];
@@ -34,6 +36,8 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
+        $this->authorize('add_profiles');
+
         return view('admin.pages.profiles.create');
     }
 
@@ -44,6 +48,8 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUpdateProfile $request){
+        $this->authorize('add_profiles');
+
         $this->repository->create($request->except('_token'));
 
         return redirect()
@@ -58,6 +64,8 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
+        $this->authorize('view_profiles');
+
         if(!$profile = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -78,6 +86,8 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
+        $this->authorize('edit_profiles');
+
         if(!$profile = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -98,6 +108,8 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StoreUpdateProfile $request, $id){
+        $this->authorize('edit_profiles');
+
         if(!$profile = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -117,6 +129,8 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
+        $this->authorize('delete_profiles');
+
         if(!$profile = $this->repository->find($id))
             return redirect()
                 ->back()
@@ -135,6 +149,8 @@ class ProfileController extends Controller
     }
 
     public function search(StoreUpdateProfile $request){
+        $this->authorize('view_profiles');
+
         $data = [
             'profiles' => $this->repository->search($request->filter),
             'filters' => $request->except('_token')
