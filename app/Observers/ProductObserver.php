@@ -28,7 +28,6 @@ class ProductObserver
     public function updating(Product $product)
     {
         $product->url = Str::kebab($product->name);
-        $product->uuid = Str::uuid();
     }
 
     /**

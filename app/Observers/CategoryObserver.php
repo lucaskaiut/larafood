@@ -28,7 +28,6 @@ class CategoryObserver
     public function updating(Category $category)
     {
         $category->url = Str::kebab($category->name);
-        $category->uuid = Str::uuid();
     }
 
     /**

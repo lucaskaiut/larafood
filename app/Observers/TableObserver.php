@@ -11,9 +11,4 @@ class TableObserver
     {
         $table->uuid = Str::uuid();
     }
-
-    public function updating(Table $table)
-    {
-        $table->uuid = Str::uuid();
-    }
 }
