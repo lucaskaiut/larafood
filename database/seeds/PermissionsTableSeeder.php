@@ -173,6 +173,26 @@ class PermissionsTableSeeder extends Seeder
                 'name' => 'delete_tenants',
                 'description' => 'Permissão para apagar empresas',
             ],
+
+            /*
+             * Roles
+             */
+            [
+                'name' => 'view_roles',
+                'description' => 'Permissão para visualizar cargos',
+            ],
+            [
+                'name' => 'edit_roles',
+                'description' => 'Permissão para editar cargos',
+            ],
+            [
+                'name' => 'add_roles',
+                'description' => 'Permissão para adicionar cargos',
+            ],
+            [
+                'name' => 'delete_roles',
+                'description' => 'Permissão para apagar cargos',
+            ],
         ];
 
         foreach($permissions as $permission){
