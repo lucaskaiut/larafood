@@ -17,18 +17,24 @@ class PlanController extends Controller
     }
 
     public function index(){
-        $plans = $this->repository->latest()->paginate();
+        $this->authorize('view_plans');
 
-        $data['plans'] = $plans;
+        $data = [
+            'plans' => $this->repository->latest()->paginate()
+        ];
 
         return view('admin.pages.plans.index', $data);
     }
 
     public function create(){
+        $this->authorize('add_plans');
+
         return view('admin.pages.plans.create');
     }
 
     public function store(StoreUpdatePlan $request){
+        $this->authorize('add_plans');
+
         $this->repository->create($request->except('_token'));
 
         return redirect()
@@ -37,25 +43,35 @@ class PlanController extends Controller
     }
 
     public function show($url){
-        $plan = $this->repository->where('url', $url)->first();
+        $this->authorize('view_plans');
 
-        if(!$plan)
+        if(!$plan = $this->repository->where('url', $url)->first())
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado, tente novamente mais tarde!');
 
-        $data['plan'] = $plan;
+        $data = [
+            'plan' => $plan,
+            'details' => $plan->details()->paginate()
+        ];
 
         return view('admin.pages.plans.show', $data);
     }
 
     public function destroy($url){
-        $plan = $this->repository->where('url', $url)->first();
+        $this->authorize('delete_plans');
 
-        if(!$plan)
+        if(!$plan = $this->repository
+                            ->with('details')
+                            ->where('url', $url)->first())
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado, tente novamente mais tarde!');
+
+        if($plan->details->count() > 0)
+            return redirect()
+                ->back()
+                ->with('error', "Não é possível apagar esse plano pois existem {$plan->details->count()} detalhes vínculados");
 
         $plan->delete();
 
@@ -63,34 +79,37 @@ class PlanController extends Controller
     }
 
     public function search(Request $request){
-        $plans = $this->repository->search($request->filter);
+        $this->authorize('view_plans');
 
-        $data['plans'] = $plans;
-
-        $data['filters'] = $request->except('_token');
+        $data = [
+            'plans' => $this->repository->search($request->filter),
+            'filters' => $request->except('_token')
+        ];
 
         return view('admin.pages.plans.index', $data);
     }
 
     public function edit($url){
-        $plan = $this->repository->where('url', $url)->first();
+        $this->authorize('edit_plans');
 
-        if(!$plan)
+        if(!$plan = $this->repository->where('url', $url)->first())
             return redirect()
                 ->back()
                 ->with('error', 'Algo deu errado, tente novamente mais tarde!');
 
-        $data['plan'] = $plan;
+        $data = [
+            'plan' => $plan
+        ];
 
         return view('admin.pages.plans.edit', $data);
     }
 
     public function update(StoreUpdatePlan $request, $url){
-        $data = $request->except('_token');
+        $this->authorize('edit_plans');
 
         $plan = $this->repository->where('url', $request->url)->first();
 
-        $plan->update($data);
+        $plan->update($request->except('_token'));
 
         return redirect()
             ->route('plans.index')

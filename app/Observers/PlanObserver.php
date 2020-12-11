@@ -16,5 +16,4 @@ class PlanObserver
     {
         $plan->url = Str::kebab($plan->name);
     }
-
 }

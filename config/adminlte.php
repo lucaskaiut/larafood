@@ -106,7 +106,7 @@ return [
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
     'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_btn' => 'btn-flat btn-outline-primary',
 
     /*
     |--------------------------------------------------------------------------
@@ -239,7 +239,56 @@ return [
         [
             'text'  => 'PLANOS',
             'route' => 'plans.index',
-            'icon'  => 'fas fa-list'
+            'icon'  => 'fas fa-list',
+            'can'   => 'view_plans',
+        ],
+        [
+            'text'  => 'PERFIS',
+            'route' => 'profiles.index',
+            'icon'  => 'fas fa-address-book',
+            'can'   => 'view_profiles',
+        ],
+        [
+            'text'  => 'CARGOS',
+            'route' => 'roles.index',
+            'icon'  => 'fas fa-address-book',
+            'can'   => 'view_roles',
+        ],
+        [
+            'text'  => 'PERMISSÕES',
+            'route' => 'permissions.index',
+            'icon'  => 'fas fa-lock',
+            'can'   => 'view_permissions',
+        ],
+        [
+            'text'  => 'USUÁRIOS',
+            'route' => 'users.index',
+            'icon'  => 'fas fa-users',
+            'can'   => 'view_users',
+        ],
+        [
+            'text'  => 'CATEGORIAS',
+            'route' => 'categories.index',
+            'icon'  => 'fas fa-layer-group',
+            'can'   => 'view_categories',
+        ],
+        [
+            'text'  => 'PRODUTOS',
+            'route' => 'products.index',
+            'icon'  => 'fas fa-store',
+            'can'   => 'view_products',
+        ],
+        [
+            'text'  => 'MESAS',
+            'route' => 'tables.index',
+            'icon'  => 'fas fa-tablet-alt',
+            'can'   => 'view_tables',
+        ],
+        [
+            'text'  => 'EMPRESAS',
+            'route' => 'tenants.index',
+            'icon'  => 'fas fa-briefcase',
+            'can'   => 'view_tenants',
         ],
 
     ],
