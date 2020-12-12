@@ -55,6 +55,8 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
     ]);
 
     // Tables
+    Route::get('mesas/qrcode/{id}', 'TableController@qrcode')->name('tables.qrcode');
+
     Route::any('mesas/procurar', 'TableController@search')->name('tables.search');
     Route::resource('mesas', 'TableController', [
         'names' => [
