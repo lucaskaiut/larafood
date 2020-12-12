@@ -41,6 +41,7 @@
                             <td>
                                 <a href="{{ route('tables.show', $table->id) }}" class="btn btn-outline-warning"><i class="far fa-eye"></i></a>
                                 <a href="{{ route('tables.edit', $table->id) }}" class="btn btn-outline-primary"><i class="far fa-edit"></i></a>
+                                <a href="{{ route('tables.qrcode', $table->id) }}" class="btn btn-outline-dark" target="_blank"><i class="fas fa-qrcode"></i></a>
                             </td>
                         </tr>
                     @endforeach

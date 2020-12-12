@@ -159,4 +159,20 @@ class TableController extends Controller
 
         return view('admin.pages.tables.index', $data);
     }
+
+    public function qrcode($id)
+    {
+        $this->authorize('edit_tables');
+
+        if(!$table = $this->repository->find($id))
+            return redirect()
+                ->back()
+                ->with('error', 'Algo deu errado. Tente novamente mais tarde');
+
+        $tenant = auth()->user()->tenant;
+
+        $uri = env('URI_CLIENT') . "/{$tenant->uuid}/{$table->uuid}";
+
+        return view('admin.pages.tables.qrcode', compact('uri'));
+    }
 }
