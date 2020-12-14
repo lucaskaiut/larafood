@@ -133,6 +133,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'company' => [
+            'required' => 'O campo Empresa é obrigatório',
+            'unique' => 'O campo empresa já está em uso',
+            'min' => 'O campo empresa deve conter no mínimo :min caracteres.',
+            'max' => 'O campo empresa deve conter no máximo :max caracteres.',
+        ]
     ],
 
     /*
